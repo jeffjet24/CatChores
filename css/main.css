@@ -1,0 +1,17 @@
+.divider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: 5px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.margin20 {
+  margin-left: 20px; 
+  margin-right: 20px;
+}
+
+.margin0 {
+  margin-top: 0; 
+  margin-bottom: 0;
+}
