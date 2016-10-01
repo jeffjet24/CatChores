@@ -1,3 +1,7 @@
+/*
+TODO: Organize this if possible
+*/
+
 .divider {
   height: 1px;
   width:100%;
@@ -14,4 +18,41 @@
 .margin0 {
   margin-top: 0; 
   margin-bottom: 0;
+}
+
+.labelBoxes {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.spanLabelBox {
+  border-right: solid;
+  border-bottom: solid;
+  border-bottom-style: outset;
+  border-right-style: outset;
+
+}
+.performedColumn {
+  padding: 0px 0px;
+}
+.insideSpanLabel {
+  margin-bottom: 3px;
+  margin-right: 3px;
+}
+.performedPanel {
+  margin-bottom: 3px;
+}
+.performedHeading {
+  padding: 3px 15px;
+}
+.performedBody {
+  padding: 3px 15px;
+}
+
+.versionLabel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  /*position: relative;*/
+  /*top: 20%;*/
+  /*transform: perspective(1px) translateY(100%);*/
 }

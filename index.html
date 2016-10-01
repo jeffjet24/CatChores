@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<!-- 
+TODO: Stylize the Main Title
+ -->
 <html lang="en">
   <head>
       <title>Kitty Chore Tracker</title>
@@ -14,25 +18,32 @@
       <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <div class="row margin20">
-      <div class="col-xs-8"><h1 class="margin0">Kitty Chore Tracker</h1></div>
-      <div class="col-xs-4"><h2 class="margin0" id="version">Version 0.1.0</h2></div>  
-    </div>
+    <header>
+      <div class="row margin20">
+        <div class="col-xs-10"><h1 class="margin0 text-center">Kitty Chore Tracker</h1></div>
+        <div class="col-xs-2"><h4 class="margin0 versionLabel" id="version">Version 0.1.0</h4></div>  
+      </div>
+    </header>
     <hr class="divider">
+    <!-- Daily Header -->
     <div class="row margin20">  
       <div class="col-xs-8">
-        <h5>Daily</h5>
+        <h5 class="labelBoxes"><span class="spanLabelBox">
+          <span class="insideSpanLabel">Daily</span>
+        </span></h5>
       </div>
-      <div class="col-xs-4">
-        <h5>Performed</h5>
+      <div class="col-xs-4 performedColumn">
+        <h5 class="labelBoxes"><span class="spanLabelBox">
+          <span class="insideSpanLabel">Performed</span>
+        </span></h5>
       </div>
     </div>
-
+    <!-- Daily Content -->
     <div class="row margin20">
       <div class="col-xs-4">
-        <div class="panel panel-warning" id="feed_am">
+        <div class="panel panel-warning" id="feedAm">
           <div class="panel-heading">
-            <h2 class="margin0"><b>Feeding AM</b></h2> <!-- class="panel-title" -->
+            <h2 class="margin0 text-center"><b>Feeding AM</b></h2> <!-- class="panel-title" -->
           </div>
           <div class="panel-body">
             <div class="btn-group btn-group-sm btn-group-justified" role="group">
@@ -46,9 +57,9 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="panel panel-success" id="feed_pm">
+        <div class="panel panel-success" id="feedPm">
           <div class="panel-heading">
-            <h2 class="margin0"><b>Feeding PM</b></h2> <!-- class="panel-title" -->
+            <h2 class="margin0 text-center"><b>Feeding PM</b></h2> <!-- class="panel-title" -->
           </div>
           <div class="panel-body">
               <div class="btn-group btn-group-sm btn-group-justified" role="group">
@@ -61,13 +72,34 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-4"></div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="panel panel-success performedPanel text-center" id="feedAmPerPanel">
+            <div class="panel-heading performedHeading">
+              <h3 class="panel-title">Feed AM</h3>
+            </div>
+            <div class="panel-body performedBody text-center" id="feedAmPerText">
+              At 7:42 AM by Mack
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="panel panel-success performedPanel text-center" id="feedPmPerPanel">
+            <div class="panel-heading performedHeading">
+              <h3 class="panel-title">Feed PM</h3>
+            </div>
+            <div class="panel-body performedBody text-center" id="feedPmPerText">
+              At 7:42 PM by Mack
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row margin20">
       <div class="col-xs-4">
-        <div class="panel panel-danger" id="downstair_litter">
+        <div class="panel panel-danger" id="downstairLitter">
           <div class="panel-heading">
-            <h3 class="margin0"><b>Downstair Litter</b></h3> <!-- class="panel-title" -->
+            <h3 class="margin0 text-center"><b>Downstair Litter</b></h3> <!-- class="panel-title" -->
           </div>
           <div class="panel-body">
             <div class="btn-group btn-group-sm btn-group-justified" role="group">
@@ -81,9 +113,9 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="panel panel-success" id="upstair_litter">
+        <div class="panel panel-success" id="upstairLitter">
           <div class="panel-heading">
-            <h3 class="margin0"><b>Upstair Litter</b></h3> <!-- class="panel-title" -->
+            <h3 class="margin0 text-center"><b>Upstair Litter</b></h3> <!-- class="panel-title" -->
           </div>
           <div class="panel-body">
             <div class="btn-group btn-group-sm btn-group-justified" role="group">
@@ -93,24 +125,51 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-4"></div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="panel panel-success performedPanel text-center" id="downstairLitterPerPanel">
+            <div class="panel-heading performedHeading">
+              <h3 class="panel-title">Downstairs Litter</h3>
+            </div>
+            <div class="panel-body performedBody text-center" id="downstairLitterPerText">
+              At 7:42 AM by Mack
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="panel panel-success performedPanel text-center" id="upstairLitterPerPanel">
+            <div class="panel-heading performedHeading">
+              <h3 class="panel-title">Upstairs Litter</h3>
+            </div>
+            <div class="panel-body performedBody text-center" id="upstairLitterPerText">
+              Wednesday at 4:30 PM by Mack
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <hr class="divider">
+    <!-- Monthly Header -->
     <div class="row margin20">  
       <div class="col-xs-8">
-        <h5>Monthly</h5>
+        <h5 class="labelBoxes"><span class="spanLabelBox">
+          <span class="insideSpanLabel">Monthly</span>
+        </span></h5>
       </div>
-      <div class="col-xs-4">
-        <h5>Performed</h5>
+      <div class="col-xs-4 performedColumn">
+        <h5 class="labelBoxes"><span class="spanLabelBox">
+          <span class="insideSpanLabel">Performed</span>
+        </span></h5>
       </div>
     </div>
 
+    <!-- Monthly Content -->
     <div class="row margin20">
       <div class="col-xs-4">
         <div class="panel panel-warning" id="vacuum">
           <div class="panel-heading">
-            <h4 class="margin0"><b>Vacuum Downstairs</b></h4> <!-- class="panel-title" -->
+            <h4 class="margin0 text-center"><b>Vacuum Downstairs</b></h4> <!-- class="panel-title" -->
           </div>
           <div class="panel-body">
               <div class="btn-group btn-group-sm btn-group-justified" role="group">
@@ -124,20 +183,20 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="panel panel-success" id="clip_nails">
+        <div class="panel panel-success" id="clipNails">
           <div class="panel-heading">
-            <h4 class="margin0"><b>Clip Nails</b></h4>
+            <h4 class="margin0 text-center"><b>Clip Nails</b></h4>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-6">
                 <div class="btn-group btn-group-sm btn-group-justified" role="group">
-                  <a href="#" class="btn btn-sm btn-success" id="millie_nails">Millicient</a>
+                  <a href="#" class="btn btn-sm btn-success" id="millieNails">Millicient</a>
                 </div>
               </div>
               <div class="col-xs-6">
                 <div class="btn-group btn-group-sm dropup" role="group">
-                  <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="kittyx_nails">
+                  <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="kittyxNails">
                     Kitty X <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
@@ -150,7 +209,40 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-4"></div>
+      <div class="col-xs-4">
+        <div class="row">
+          <div class="panel panel-success performedPanel text-center" id="vacuumPerPanel">
+            <div class="panel-heading performedHeading">
+              <h3 class="panel-title">Vacuum Downstairs</h3>
+            </div>
+            <div class="panel-body performedBody text-center" id="vacuumPerText">
+              9/14 by Mack
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 performedColumn">
+            <div class="panel panel-success performedPanel text-center" id="millieNailsPerPanel">
+              <div class="panel-heading performedHeading">
+                <h3 class="panel-title">Nails Millie</h3>
+              </div>
+              <div class="panel-body performedBody text-center" id="millieNailsPerText">
+                9/23
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 performedColumn">
+            <div class="panel panel-success performedPanel text-center" id="kittyNailsPerPanel">
+              <div class="panel-heading performedHeading">
+                <h3 class="panel-title">Nails Kitty X</h3>
+              </div>
+              <div class="panel-body performedBody text-center" id="kittyNailsPerText">
+                9/23 by M
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
