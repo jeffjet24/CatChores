@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- 
+<!--
 TODO: Stylize the Main Title
  -->
 <html lang="en">
@@ -16,17 +16,17 @@ TODO: Stylize the Main Title
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <!-- Homemade CSS -->
       <link rel="stylesheet" href="css/main.css">
+
+      <!-- Homemade JS -->
+      <script type='text/javascript' src='scripts/buttonPress.js'></script>
+      <script type='text/javascript' src='scripts/updateInterface.js'></script>
   </head>
   <body>
     <header>
-      <div class="row margin20 margin0">
-        <div class="col-xs-10"><h1 class="margin0 text-center">Kitty Chore Tracker</h1></div>
-        <div class="col-xs-2"><h4 class="margin0 versionLabel" id="version">Version 0.1.0</h4></div>  
-      </div>
+      <h4 class="margin0 versionLabel" id="version">Version 0.1.0</h4>
     </header>
-    <hr class="divider">
     <!-- Daily Header -->
-    <div class="row margin20">  
+    <div class="row margin20">
       <div class="col-xs-8">
         <h5 class="labelBoxes"><span class="spanLabelBox">
           <span class="insideSpanLabel">Daily</span>
@@ -47,11 +47,11 @@ TODO: Stylize the Main Title
           </div>
           <div class="panel-body">
             <div class="btn-group btn-group-sm btn-group-justified" role="group">
-                <a href="#" class="btn btn-sm btn-default">MC</a>
-                <a href="#" class="btn btn-sm btn-default">A</a>
-                <a href="#" class="btn btn-sm btn-default">B</a>
-                <a href="#" class="btn btn-sm btn-default">D</a>
-                <a href="#" class="btn btn-sm btn-default">MA</a>
+              <a onclick="sendEvent({eventName:'FeedAM', name:'Mack'});" class="btn btn-sm btn-default">MC</a>
+              <a onclick="sendEvent({eventName:'FeedAM', name:'Autumn'});" class="btn btn-sm btn-default">A</a>
+              <a onclick="sendEvent({eventName:'FeedAM', name:'Ben'});" class="btn btn-sm btn-default">B</a>
+              <a onclick="sendEvent({eventName:'FeedAM', name:'David'});" class="btn btn-sm btn-default">D</a>
+              <a onclick="sendEvent({eventName:'FeedAM', name:'Molly'});" class="btn btn-sm btn-default">MA</a>
             </div>
           </div>
         </div>
@@ -63,11 +63,11 @@ TODO: Stylize the Main Title
           </div>
           <div class="panel-body">
               <div class="btn-group btn-group-sm btn-group-justified" role="group">
-                <a href="#" class="btn btn-sm btn-default">MC</a>
-                <a href="#" class="btn btn-sm btn-default">A</a>
-                <a href="#" class="btn btn-sm btn-default">B</a>
-                <a href="#" class="btn btn-sm btn-default">D</a>
-                <a href="#" class="btn btn-sm btn-default">MA</a>
+                <a onclick="sendEvent({eventName:'FeedPM', name:'Mack'});" class="btn btn-sm btn-default">MC</a>
+                <a onclick="sendEvent({eventName:'FeedPM', name:'Autumn'});" class="btn btn-sm btn-default">A</a>
+                <a onclick="sendEvent({eventName:'FeedPM', name:'Ben'});" class="btn btn-sm btn-default">B</a>
+                <a onclick="sendEvent({eventName:'FeedPM', name:'David'});" class="btn btn-sm btn-default">D</a>
+                <a onclick="sendEvent({eventName:'FeedPM', name:'Molly'});" class="btn btn-sm btn-default">MA</a>
             </div>
           </div>
         </div>
@@ -103,11 +103,11 @@ TODO: Stylize the Main Title
           </div>
           <div class="panel-body">
             <div class="btn-group btn-group-sm btn-group-justified" role="group">
-                <a href="#" class="btn btn-sm btn-default">MC</a>
-                <a href="#" class="btn btn-sm btn-default">A</a>
-                <a href="#" class="btn btn-sm btn-default">B</a>
-                <a href="#" class="btn btn-sm btn-default">D</a>
-                <a href="#" class="btn btn-sm btn-default">MA</a>
+              <a onclick="sendEvent({eventName:'DownstairLitter', name:'Mack'});" class="btn btn-sm btn-default">MC</a>
+              <a onclick="sendEvent({eventName:'DownstairLitter', name:'Autumn'});" class="btn btn-sm btn-default">A</a>
+              <a onclick="sendEvent({eventName:'DownstairLitter', name:'Ben'});" class="btn btn-sm btn-default">B</a>
+              <a onclick="sendEvent({eventName:'DownstairLitter', name:'David'});" class="btn btn-sm btn-default">D</a>
+              <a onclick="sendEvent({eventName:'DownstairLitter', name:'Molly'});" class="btn btn-sm btn-default">MA</a>
             </div>
           </div>
         </div>
@@ -148,10 +148,10 @@ TODO: Stylize the Main Title
         </div>
       </div>
     </div>
-    
+
     <hr class="divider">
     <!-- Monthly Header -->
-    <div class="row margin20">  
+    <div class="row margin20">
       <div class="col-xs-8">
         <h5 class="labelBoxes"><span class="spanLabelBox">
           <span class="insideSpanLabel">Monthly</span>
