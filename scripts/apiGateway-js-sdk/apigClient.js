@@ -51,7 +51,7 @@ apigClientFactory.newClient = function (config) {
         config.defaultAcceptType = 'application/json';
     }
 
-    
+
     // extract endpoint and path from url
     var invokeUrl = 'https://5vsoxh69gj.execute-api.us-east-1.amazonaws.com/v1';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
@@ -80,14 +80,14 @@ apigClientFactory.newClient = function (config) {
     };
 
     var apiGatewayClient = apiGateway.core.apiGatewayClientFactory.newClient(simpleHttpClientConfig, sigV4ClientConfig);
-    
-    
-    
+
+
+
     apigClient.catEventPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
-        
+
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
+
         var catEventPostRequest = {
             verb: 'post'.toUpperCase(),
             path: pathComponent + uritemplate('/cat-event').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
@@ -95,17 +95,17 @@ apigClientFactory.newClient = function (config) {
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
-        
-        
+
+
         return apiGatewayClient.makeRequest(catEventPostRequest, authType, additionalParams, config.apiKey);
     };
-    
-    
+
+
     apigClient.statusUpdateGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
-        
+
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
+
         var statusUpdateGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/status-update').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
@@ -113,11 +113,11 @@ apigClientFactory.newClient = function (config) {
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
-        
-        
+
+
         return apiGatewayClient.makeRequest(statusUpdateGetRequest, authType, additionalParams, config.apiKey);
     };
-    
+
 
     return apigClient;
 };
