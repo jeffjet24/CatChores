@@ -3,11 +3,12 @@ from operator import itemgetter
 
 import boto3
 import json
-import datetime
+from datetime import tzinfo, timedelta, datetime
 tableName = "CatChores"
 print('Loading function')
 dynamodb = boto3.resource('dynamodb').Table('CatChores')
 dynamodb.load()
+TIMEZONE_DIFFERENCE = timedelta(hours = -5)
 
 def respond(err, res=None):
     return {
@@ -19,16 +20,34 @@ def respond(err, res=None):
     }
 
 def getFoodStatus(lastTime):
-    return {"status":"yellow", "item": lastTime}
-    # return {status: statusVal, item: lastTime}
+    current = datetime.now() + TIMEZONE_DIFFERENCE
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    if current < last + timedelta(hours = 22):
+        return {"status":"green", "item": lastTime}
+    elif last + timedelta(hours = 22) <= current and current < last + timedelta(hours = 26):
+        return {"status":"yellow", "item": lastTime}
+    elif last + timedelta(hours = 26) <= current:
+        return {"status":"red", "item": lastTime}
 
 def getLitterStatus(lastTime):
-    return {"status":"green", "item": lastTime}
-    # return {status: statusVal, item: lastTime}
+    current = datetime.now() + TIMEZONE_DIFFERENCE
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    if current < last + timedelta(hours = 48):
+        return {"status":"green", "item": lastTime}
+    elif last + timedelta(hours = 48) <= current and current < last + timedelta(hours = 72):
+        return {"status":"yellow", "item": lastTime}
+    elif last + timedelta(hours = 72) <= current:
+        return {"status":"red", "item": lastTime}
 
 def getMonthlyStatus(lastTime):
-    return {"status":"red", "item": lastTime}
-    # return {status: statusVal, item: lastTime}
+    current = datetime.now() + TIMEZONE_DIFFERENCE
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    if current < last + timedelta(days = 21):
+        return {"status":"green", "item": lastTime}
+    elif last + timedelta(days = 21) <= current and current < last + timedelta(days = 35):
+        return {"status":"yellow", "item": lastTime}
+    elif last + timedelta(days = 35) <= current:
+        return {"status":"red", "item": lastTime}
 
 def sortingLayer(item):
     if item is not None:
@@ -48,7 +67,7 @@ def sortingLayer(item):
 
 def lambda_handler(event, context):
     # I am doing NO checking for nonexisting items... so.... yeah... 
-
+    print("Current Time: " + datetime.today().strftime('%X'))
     results = {
         "feedAMList":[],
         "feedPMList":[],
