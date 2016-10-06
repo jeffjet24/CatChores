@@ -1,3 +1,31 @@
+function createAlert(success){
+  var newBoxCon = document.createElement("div");
+  if(success){
+    newBoxCon.className = "alert alert-success alert-dismissible versionLabel";
+  } else {
+    newBoxCon.className = "alert alert-danger alert-dismissible versionLabel";
+  }
+  newBoxCon.setAttribute("role", "alert");
+  newBoxCon.style.zIndex = 5;
+  var newBoxBut = document.createElement("button");
+  newBoxBut.setAttribute("type", "button");
+  newBoxBut.className = "close";
+  newBoxBut.setAttribute("data-dismiss", "alert");
+  newBoxBut.setAttribute("aria-label", "Close");
+  var newBoxSpan = document.createElement("span");
+  newBoxSpan.setAttribute("aria-hidden", "true");
+  newBoxSpan.innerHTML = "&times;";
+  newBoxBut.appendChild(newBoxSpan);
+  newBoxCon.appendChild(newBoxBut);
+  if(success){
+    newBoxCon.appendChild(document.createTextNode("Your Operation was Successfully Processed!"));
+  } else {
+    newBoxCon.appendChild(document.createTextNode("Your Operation has Failed"));
+  }
+  return newBoxCon;
+}
+
+
 function sendEvent(data) {
   //Data Shape: {name, eventName}
   var curTime = new Date().getTime() / 1000;
@@ -9,13 +37,13 @@ function sendEvent(data) {
   var additionalParams = {};
   apigClient.catEventPost(params, body, additionalParams)
       .then(function(result){
-          //This is where you would put a success callback
-          document.getElementById("successMessage").style.visibility = "visible";
+          var newBox = createAlert(true);
+          document.getElementById("alertBoxes").appendChild(newBox);
           updatePerformed(data.eventName, data.name, curTime);
       }).catch( function(result){
-          //This is where you would put an error callback
-          //alert('The Request Did not get sent correctly. :( :' + result);
-          document.getElementById("failMessage").style.visibility = "visible";
+          var newBox = createAlert(false);
+          document.getElementById("alertBoxes").appendChild(newBox);
+          updatePerformed(data.eventName, data.name, curTime);
       });
 }
 

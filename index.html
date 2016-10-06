@@ -34,16 +34,7 @@
     <header>
       <input type="button" class="btn btn-sm btn-danger closeButton" value="X" onclick="self.close()">
       <h4 class="margin0 versionLabel" id="version">Version 0.1.0</h4>
-      <!-- Success Message -->
-      <div class="alert alert-success alert-dismissible versionLabel" role="alert" style="z-index: 5; visibility: hidden;" id="successMessage">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        Your Operation was Successfully Processed!
-      </div>
-      <!-- Failure Message -->
-      <div class="alert alert-danger alert-dismissible versionLabel" role="alert" style="z-index: 5; visibility: hidden;" id="failMessage">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        Your Operation has Failed
-      </div>
+      <div id="alertBoxes"></div>
     </header>
 
     <!-- Daily Header -->
@@ -211,8 +202,15 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-6">
-                <div class="btn-group btn-group-sm btn-group-justified" role="group">
-                  <a onclick="sendEvent({eventName:'MillieNails', name:'Ben'});" class="btn btn-sm btn-success" id="MillieNails">Millicient</a>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="MillieNails">
+                    Millicient<span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a onclick="sendEvent({eventName:'MillieNails', name:'Ben'});">Ben</a></li>
+                    <li><a onclick="sendEvent({eventName:'MillieNails', name:'Mack'});">Mack</a></li>
+                    <li><a onclick="sendEvent({eventName:'MillieNails', name:'Autumn'});">Autumn</a></li>
+                  </ul>
                 </div>
               </div>
               <div class="col-xs-6">
@@ -221,6 +219,7 @@
                     Kitty X <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
+                    <li><a onclick="sendEvent({eventName:'KittyXNails', name:'Ben'});">Ben</a></li>
                     <li><a onclick="sendEvent({eventName:'KittyXNails', name:'Mack'});">Mack</a></li>
                     <li><a onclick="sendEvent({eventName:'KittyXNails', name:'Autumn'});">Autumn</a></li>
                   </ul>
