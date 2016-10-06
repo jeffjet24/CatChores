@@ -52,7 +52,10 @@ TODO: Organize this if possible
   position: absolute;
   right: 0;
   top: 0;
-  /*position: relative;*/
-  /*top: 20%;*/
-  /*transform: perspective(1px) translateY(100%);*/
+}
+
+.closeButton {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
