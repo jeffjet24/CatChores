@@ -39,21 +39,37 @@ function sendEvent(data) {
       .then(function(result){
           var newBox = createAlert(true);
           document.getElementById("alertBoxes").appendChild(newBox);
-          updatePerformed(data.eventName, data.name, curTime);
+          updatePerformed(data.eventName, data.name, curTime, "green");
       }).catch( function(result){
           var newBox = createAlert(false);
           document.getElementById("alertBoxes").appendChild(newBox);
-          updatePerformed(data.eventName, data.name, curTime);
+          updatePerformed(data.eventName, data.name, curTime, "green");
       });
 }
 
 
-function updatePerformed(eventName, userName, timePer){
+function updatePerformed(eventName, userName, timePer, statusColor){
   // This function is going to update all the panels that are related and the performed section.
   const BASE_BUTTON_PANEL = "panel margin0";
   const BASE_BUTTON = "btn btn-sm";
   const DROPDOWN_BUTTON = "dropdown-toggle";
   const BASE_PER_PANEL = "panel margin0 performedPanel text-center";
+  var statusCode = ""
+  switch (statusColor) {
+    case "green":
+      statusCode = "success";
+      break;
+    case "yellow":
+      statusCode = "warning";
+      break;
+    case "red":
+      statusCode = "danger";
+      break;
+    default:
+      statusCode = "danger";
+  }
+
+
   var buttonPanel = eventName;
   var panelName = eventName + "PerPanel";
   var textName = eventName + "PerText";
@@ -61,9 +77,9 @@ function updatePerformed(eventName, userName, timePer){
 
   // Setting the Button Panel Color
   if(buttonPanel != "MillieNails" && buttonPanel != "KittyXNails"){
-    document.getElementById(buttonPanel).className = BASE_BUTTON_PANEL + " panel-success";
+    document.getElementById(buttonPanel).className = BASE_BUTTON_PANEL + " panel-" + statusCode;
   } else {
-    var classString = BASE_BUTTON + " btn-success";
+    var classString = BASE_BUTTON + " btn-" + statusCode;
     if(buttonPanel == "KittyXNails"){
       classString = classString + " " + DROPDOWN_BUTTON;
     }
@@ -71,7 +87,7 @@ function updatePerformed(eventName, userName, timePer){
   }
 
   // Setting the Performed Panel Colors
-  document.getElementById(panelName).className = BASE_PER_PANEL + " panel-success";
+  document.getElementById(panelName).className = BASE_PER_PANEL + " panel-" + statusCode;
 
   // Setting the Performed Panel Text
   var dateString = time.getMonth().toString() + "/" + time.getDate().toString() + " " + time.getHours().toString() + ":" + time.getMinutes().toString();

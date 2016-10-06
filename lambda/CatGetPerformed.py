@@ -21,7 +21,7 @@ def respond(err, res=None):
 
 def getFoodStatus(lastTime):
     current = datetime.now() + TIMEZONE_DIFFERENCE
-    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE
     if current < last + timedelta(hours = 22):
         return {"status":"green", "item": lastTime}
     elif last + timedelta(hours = 22) <= current and current < last + timedelta(hours = 26):
@@ -31,7 +31,7 @@ def getFoodStatus(lastTime):
 
 def getLitterStatus(lastTime):
     current = datetime.now() + TIMEZONE_DIFFERENCE
-    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE
     if current < last + timedelta(hours = 48):
         return {"status":"green", "item": lastTime}
     elif last + timedelta(hours = 48) <= current and current < last + timedelta(hours = 72):
@@ -41,7 +41,7 @@ def getLitterStatus(lastTime):
 
 def getMonthlyStatus(lastTime):
     current = datetime.now() + TIMEZONE_DIFFERENCE
-    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE 
+    last = datetime.fromtimestamp(int(lastTime["time"])) + TIMEZONE_DIFFERENCE
     if current < last + timedelta(days = 21):
         return {"status":"green", "item": lastTime}
     elif last + timedelta(days = 21) <= current and current < last + timedelta(days = 35):
@@ -66,7 +66,7 @@ def sortingLayer(item):
 
 
 def lambda_handler(event, context):
-    # I am doing NO checking for nonexisting items... so.... yeah... 
+    # I am doing NO checking for nonexisting items... so.... yeah...
     print("Current Time: " + datetime.today().strftime('%X'))
     results = {
         "feedAMList":[],
@@ -77,7 +77,7 @@ def lambda_handler(event, context):
         "millieNailsList":[],
         "kittyXNailsList":[]
     }
-    
+
 
     print("Received event: " + json.dumps(event, indent=2))
     response = dynamodb.scan(
@@ -88,6 +88,7 @@ def lambda_handler(event, context):
     print("DynamoDB Response:" + str(response))
     for item in response["Items"]:
         taskType = item["task"]
+        item["time"] = int(item["time"])
         # This is going to get real ugly.. but they don't have switch statements in python... and mapping it to a dict is not ideal...
         if taskType == "FeedAM":
             results["feedAMList"].append(item)
@@ -107,10 +108,11 @@ def lambda_handler(event, context):
     resultList = []
     for key, value in results.iteritems():
         # sort the values in ascending order by timestamp
-        sorted(results[key], key=itemgetter('time'))
+        results[key] = sorted(results[key], key=itemgetter('time'), reverse = False)
         # grab the one with the highest timestamp
         resultList.append(sortingLayer(results[key].pop()))
 
 
     print("The End Results are: " + str(resultList))
-    return respond(None, {"Message":"Thanks!"})
+    resultingJSONString = json.dumps(resultList, separators=(',',':'))
+    return respond(None, {"Message":resultingJSONString})
