@@ -90,6 +90,6 @@ function updatePerformed(eventName, userName, timePer, statusColor){
   document.getElementById(panelName).className = BASE_PER_PANEL + " panel-" + statusCode;
 
   // Setting the Performed Panel Text
-  var dateString = time.getMonth().toString() + "/" + time.getDate().toString() + " " + time.getHours().toString() + ":" + time.getMinutes().toString();
+  var dateString = (time.getMonth() + 1).toString() + "/" + time.getDate().toString() + " " + time.getHours().toString() + ":" + time.getMinutes().toString();
   document.getElementById(textName).innerHTML = dateString + " By " + userName;
 }

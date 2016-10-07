@@ -70,7 +70,6 @@ function getUpdate(){
         console.log(result);
       });
   updateComboKitty();
-
 }
 
 function runtimeFunc(){
