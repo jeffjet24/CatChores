@@ -28,10 +28,5 @@ To explain this part, it requires a little bit of backstory. My roommates and I 
 
 
 ## Things that need to be done:
-* Need to fix the minutes place in the timestamps under the performed section to have a leading zero in the case of a single digit minutes value. e.g. currently: `Mack fed cat at 11:8 AM`. Needs to be: `Mack fed cat at 11:08 AM` (for version 1.0.0)
-* Set the timestamps to use 12 hour format, because @iammann cannot read 24-hour format. (for version 1.0.0)
-* Make the colors of the panels a darker color in the CSS, overriding Bootstraps colors. This is needed because of the brightness and viewing angle with the Raspberry Pi touchscreen. It washes out the already pretty light colors that Bootstrap uses for its panels. (for version 1.0.0)
-* Edit the `lambda/CatGetPerformed.py` Lambda function to base feeding the cat around 8 AM in the AM, and 8 PM in the PM. As I found that if the cat doesn't get fed until 11 AM, the function will think that it is normal to feed the cat at 11 AM the next day.. While we really want to normalize it around 8 AM and 8 PM everyday. (for version 1.0.1)
-* Writing the Python plugin for the Hangouts bot to pull the pictures from the hangouts thread. (for version 1.1.0)
-* Giving someone a nice interface (a different interface than the main one) to make a simple request to the API which allows them to customize the timestamp. This would allow someone to register that a task was completed long after it has been completed. So for example: if someone forgot to tap the interface on the tablet after they fed the cat. Or if they didn't have time to add it. (for version 1.2.0)
+If you would like to contribute, please feel free to either clone the repo and then make a Pull Request to merge your changes in! If you are looking for a list of the things that need to be done, please check out the issues section for a good place to start. 
 
