@@ -31,7 +31,6 @@ function updateComboKitty(){
 }
 
 
-
 function updateFields(data){
   data.forEach(function(item){
     var status = item.status;
@@ -41,13 +40,9 @@ function updateFields(data){
     switch (eventName) {
       case "MillieNails":
         millieNailsStatus = status == "green";
-        console.log(millieNailsStatus);
-        console.log(status == "green");
         break;
       case "KittyXNails":
         kittyXNailsStatus = status == "green";
-        console.log(kittyXNailsStatus);
-        console.log(status == "green");
         break;
     }
     updatePerformed(eventName, userName, time, status);
@@ -55,7 +50,6 @@ function updateFields(data){
 }
 
 function getUpdate(){
-  console.log("Running Update!");
   var apigClient = apigClientFactory.newClient();
   var params = {};
   var body = {};
