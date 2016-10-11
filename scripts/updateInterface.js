@@ -31,7 +31,6 @@ function updateComboKitty(){
 }
 
 
-
 function updateFields(data){
   data.forEach(function(item){
     var status = item.status;
@@ -55,7 +54,6 @@ function updateFields(data){
 }
 
 function getUpdate(){
-  console.log("Running Update!");
   var apigClient = apigClientFactory.newClient();
   var params = {};
   var body = {};
