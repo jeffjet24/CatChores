@@ -41,13 +41,9 @@ function updateFields(data){
     switch (eventName) {
       case "MillieNails":
         millieNailsStatus = status == "green";
-        console.log(millieNailsStatus);
-        console.log(status == "green");
         break;
       case "KittyXNails":
         kittyXNailsStatus = status == "green";
-        console.log(kittyXNailsStatus);
-        console.log(status == "green");
         break;
     }
     updatePerformed(eventName, userName, time, status);
