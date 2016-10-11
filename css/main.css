@@ -11,12 +11,12 @@ TODO: Organize this if possible
   background-color: #e5e5e5;
 }
 .margin20 {
-  margin-left: 20px; 
+  margin-left: 20px;
   margin-right: 20px;
 }
 
 .margin0 {
-  margin-top: 0; 
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -58,4 +58,23 @@ TODO: Organize this if possible
   position: absolute;
   left: 0;
   top: 0;
+}
+
+/*Success Recolors*/
+.panel-success > .panel-heading {
+    background-image: none;
+    background-color: #6CD968;
+}
+
+/*Warning Recolors*/
+.panel-warning > .panel-heading {
+  background-image: none;
+  background-color: #EDDA77;
+}
+
+/*Danger Recolors*/
+.panel-danger > .panel-heading {
+  background-image: none;
+  background-color: #f77676;
+  color: #7b110f;
 }
