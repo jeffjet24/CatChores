@@ -8,7 +8,20 @@ http://amzn.to/1LGWsLG
 """
 
 from __future__ import print_function
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
+catEventEndpoint = 'https://5vsoxh69gj.execute-api.us-east-1.amazonaws.com/v1/cat-event' # Set destination URL here
+
+
+
+
+
+from operator import itemgetter
+
+import boto3
+import json
+from datetime import tzinfo, timedelta, datetime
 
 # --------------- Helpers that build all of the responses ----------------------
 
@@ -41,6 +54,36 @@ def build_response(session_attributes, speechlet_response):
     }
 
 
+def getUser(given):
+    if given == "mac":
+        return "Mack"
+    elif given == "autumn":
+        return "Autumn"
+    elif given == "david":
+        return "David"
+    elif given == "molly":
+        return "Molly"
+    elif given == "ben":
+        return "Ben"
+    elif given == "been":
+        return "Ben"
+
+
+def getActivity(given, cat):
+    if given == "cleaned":
+        return "DownstairLitter"
+    elif given == "vacuumed":
+        return "Vacuum"
+    elif given == "vacuum":
+        return "Vacuum"
+    elif given == "emptied":
+        return "DownstairLitter"
+    elif given == "clipped":
+        return cat + "Nails"
+    elif given == "fed":
+        # Add time determining logic...
+        return "FeedAM"
+
 # --------------- Functions that control the skill's behavior ------------------
 
 def get_welcome_response():
@@ -50,13 +93,13 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Skills Kit sample. " \
-                    "Please tell me your favorite color by saying, " \
-                    "my favorite color is red"
+    speech_output = "Welcome to the Cat Chores Alexa Skill!" \
+                    "Please tell me what chore has been just been completed. "\
+                    "Please say it in past tense."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "Please tell me what chore has been just been completed. "\
+                    "Please say it in past tense."
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -64,8 +107,7 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
-                    "Have a nice day! "
+    speech_output = "Thank you! Have a nice day!"
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -76,7 +118,7 @@ def create_favorite_color_attributes(favorite_color):
     return {"favoriteColor": favorite_color}
 
 
-def set_color_in_session(intent, session):
+def performChore(intent, session):
     """ Sets the color in the session and prepares the speech to reply to the
     user.
     """
@@ -85,21 +127,45 @@ def set_color_in_session(intent, session):
     session_attributes = {}
     should_end_session = False
 
-    if 'Color' in intent['slots']:
-        favorite_color = intent['slots']['Color']['value']
-        session_attributes = create_favorite_color_attributes(favorite_color)
-        speech_output = "I now know your favorite color is " + \
-                        favorite_color + \
-                        ". You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-        reprompt_text = "You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
+
+    eventName = ""
+    actorName = getUser(event["request"]["intent"]["slots"]["User"]["value"])
+    if "value" in event["request"]["intent"]["slots"]["Cat"]:
+        catName = event["request"]["intent"]["slots"]["Cat"]["value"]
+        eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], catName)
     else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "Please try again."
-        reprompt_text = "I'm not sure what your favorite color is. " \
-                        "You can tell me your favorite color by saying, " \
-                        "my favorite color is red."
+        eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], "")
+    utc_dt = datetime.strptime(event["request"]["timestamp"], '%Y-%m-%dT%H:%M:%SZ')
+    time = int((utc_dt - datetime(1970, 1, 1)).total_seconds())
+
+
+    post_message = {'name': actorName, "time": time, "event": eventName}
+    request = Request(catEventEndpoint, urlencode(post_message).encode())
+    json = urlopen(request).read().decode()
+    print(json)
+
+    speech_output = "Thank You! That record has been added!"
+    reprompt_text = "Please tell me what chore has been just been completed. "\
+                    "Please say it in past tense."
+    session_attributes = {}
+
+    # if 'Color' in intent['slots']:
+    #     favorite_color = intent['slots']['Color']['value']
+    #     session_attributes = create_favorite_color_attributes(favorite_color)
+    #     speech_output = "I now know your favorite color is " + \
+    #                     favorite_color + \
+    #                     ". You can ask me your favorite color by saying, " \
+    #                     "what's my favorite color?"
+    #     reprompt_text = "You can ask me your favorite color by saying, " \
+    #                     "what's my favorite color?"
+    # else:
+    #     speech_output = "I'm not sure what your favorite color is. " \
+    #                     "Please try again."
+    #     reprompt_text = "I'm not sure what your favorite color is. " \
+    #                     "You can tell me your favorite color by saying, " \
+    #                     "my favorite color is red."
+
+
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
@@ -155,9 +221,9 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "MyColorIsIntent":
+    if intent_name == "PerformChore":
         return set_color_in_session(intent, session)
-    elif intent_name == "WhatsMyColorIntent":
+    elif intent_name == "QueryChore":
         return get_color_from_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
@@ -185,8 +251,7 @@ def lambda_handler(event, context):
     """
     print("event.session.application.applicationId=" +
           event['session']['application']['applicationId'])
-    # for i in event:
-    #     print(i + ": " + event[i])
+    print("Received event: " + json.dumps(event, indent=2))
     
 
     """
