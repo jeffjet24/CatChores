@@ -1,0 +1,38 @@
+{
+  "intents": [
+    {
+      "intent": "PerformChore",
+      "slots": [
+        {
+          "name": "Chore",
+          "type": "CHORE"
+        },
+        {
+          "name": "User",
+          "type": "USER"
+        },
+        {
+          "name": "Cat",
+          "type": "CAT_NAME"
+        },
+        {
+          "name": "Object",
+          "type": "CHORE_OBJECT"
+        },
+        {
+          "name": "Date",
+          "type": "AMAZON.DATE"
+        }
+      ]
+    },
+    {
+      "intent": "GetUser",
+      "slots": [
+        {
+          "name": "User",
+          "type": "USER"
+        }
+      ]
+    }
+  ]
+}
