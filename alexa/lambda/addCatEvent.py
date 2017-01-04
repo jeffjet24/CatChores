@@ -1,12 +1,3 @@
-"""
-This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
-The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
-as testing instructions are located at http://amzn.to/1LzFrj6
-
-For additional samples, visit the Alexa Skills Kit Getting Started guide at
-http://amzn.to/1LGWsLG
-"""
-
 from __future__ import print_function
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -252,7 +243,7 @@ def lambda_handler(event, context):
     print("event.session.application.applicationId=" +
           event['session']['application']['applicationId'])
     print("Received event: " + json.dumps(event, indent=2))
-    
+
 
     """
     Uncomment this if statement and populate with your skill's application ID to

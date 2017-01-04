@@ -1,0 +1,5 @@
+Type: Custom
+Language: English
+Name: CatEvent
+Invocation Name: cat
+Audio Player: No
