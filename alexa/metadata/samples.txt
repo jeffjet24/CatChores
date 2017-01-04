@@ -1,0 +1,5 @@
+PerformChore {Cat} got {Chore} by {User}
+PerformChore {Cat} was {Chore} by {User}
+PerformChore {User} {Chore} {Cat} {Object}
+PerformChore {User} {Chore} {Cat} 
+PerformChore {User} {Chore} the {Object}
