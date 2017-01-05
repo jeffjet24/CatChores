@@ -2,7 +2,7 @@ from __future__ import print_function
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-catEventEndpoint = 'https://5vsoxh69gj.execute-api.us-east-1.amazonaws.com/v1/cat-event' # Set destination URL here
+catEventSNS = "arn:aws:sns:us-east-1:818316582971:CatEvent"
 
 
 
