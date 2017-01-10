@@ -3,8 +3,10 @@ import boto3
 import json
 from datetime import tzinfo, timedelta, datetime
 
-client = boto3.client('sns')
+snsClient = boto3.client('sns')
+lambdaClient = boto3.cliet
 catEventSNS = "arn:aws:sns:us-east-1:818316582971:CatEvent"
+catGetPerformedLambda = "arn:aws:lambda:us-east-1:818316582971:function:CatGetPerformed"
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
@@ -37,7 +39,8 @@ def build_response(sessionAttributes, speechlet_response):
 
 
 def getUser(given):
-    if given == "mac":
+    given = given.lower()
+    if given == "mac" or given == "mack":
         return "Mack"
     elif given == "autumn":
         return "Autumn"
@@ -45,23 +48,20 @@ def getUser(given):
         return "David"
     elif given == "molly":
         return "Molly"
-    elif given == "ben":
-        return "Ben"
-    elif given == "been":
+    elif given == "ben" or given == "been":
         return "Ben"
 
 
 def getActivity(given, cat):
+    given = given.lower()
     if given == "cleaned":
         return "DownstairLitter"
-    elif given == "vacuumed":
+    elif given == "vacuumed" or given == "vacuum":
         return "Vacuum"
-    elif given == "vacuum":
-        return "Vacuum"
-    elif given == "emptied":
+    elif given == "emptied" or given == "empty":
         return "DownstairLitter"
     elif given == "clipped":
-        if cat == "millies":
+        if cat == "millies" or cat == "millie" or cat == "milly":
             cat = "Millie"
         return cat + "Nails"
     elif given == "fed":
@@ -111,7 +111,7 @@ def performChore(intent, session, event):
 
     post_message = {'name': actorName, "time": str(time), "event": eventName}
 
-    response = client.publish(
+    response = snsClient.publish(
     TopicArn=catEventSNS,
     Message=json.dumps({"name": actorName, "time": time, "event": eventName}))
 
@@ -120,6 +120,7 @@ def performChore(intent, session, event):
     return build_response({}, build_speechlet_response(
         card_title, speech_output, "", should_end_session))
 
+def getPerformedChore(intent, session, event):
 
 # --------------- Events ------------------
 
