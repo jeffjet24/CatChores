@@ -12,33 +12,19 @@ dynamodb.load()
 
 def lambda_handler(event, context):
     print("Received event: " + json.dumps(event, indent=2))
-    #     eventName = ""
-    #     actorName = getUser(event["request"]["intent"]["slots"]["User"]["value"])
-    #     if "value" in event["request"]["intent"]["slots"]["Cat"]:
-    #         catName = event["request"]["intent"]["slots"]["Cat"]["value"]
-    #         eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], catName)
-    #     else:
-    #         eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], "")
-    #     utc_dt = datetime.strptime(event["request"]["timestamp"], '%Y-%m-%dT%H:%M:%SZ')
-    #     time = int((utc_dt - datetime(1970, 1, 1)).total_seconds())
-    #
-    #     itemParams = {
-    #         "time": time,
-    #         "task": eventName,
-    #         "personName": actorName
-    #     }
-    #     print("Params: " + json.dumps(itemParams, indent=2))
-    #     response = dynamodb.put_item(
-    #         Item = itemParams,
-    #         ReturnConsumedCapacity = 'TOTAL'
-    #     )
-    #     if response == 200:
-    #         speech_output = "Thank You! Have a nice day!"
-    #         return build_response({}, build_speechlet_response("Cat Chores", speech_output, None, True))
-    #
-    actorName = event["name"]
-    time = event["time"]
-    eventName = event["event"]
+    actorName = ""
+    time = ""
+    eventName = ""
+    if "Records" in event:
+        snsMessage = json.loads(event["Records"][0]["Sns"]["Message"])
+        actorName = snsMessage["name"]
+        time = int(snsMessage["time"])
+        eventName = snsMessage["event"]
+    else:
+        actorName = event["name"]
+        time = int(event["time"])
+        eventName = event["event"]
+
     itemParams = {
         "time": time,
         "task": eventName,
@@ -49,4 +35,7 @@ def lambda_handler(event, context):
         ReturnConsumedCapacity = 'TOTAL'
     )
     print("The Response was: " + str(response))
-    return respond(response, "Thanks!")
+    if "Records" not in event:
+        return respond(response, "Thanks!")
+    else:
+        return 0
