@@ -4,7 +4,7 @@ import json
 from datetime import tzinfo, timedelta, datetime
 
 snsClient = boto3.client('sns')
-lambdaClient = boto3.cliet
+lambdaClient = boto3.client('lambda')
 catEventSNS = "arn:aws:sns:us-east-1:818316582971:CatEvent"
 catGetPerformedLambda = "arn:aws:lambda:us-east-1:818316582971:function:CatGetPerformed"
 # --------------- Helpers that build all of the responses ----------------------
@@ -65,7 +65,7 @@ def getActivity(given, cat):
             cat = "Millie"
         return cat + "Nails"
     elif given == "fed":
-        # Add time determining logic...
+        # Add time (AM/PM) determining logic...
         return "FeedAM"
 
 # --------------- Functions that control the skill's behavior ------------------
@@ -75,9 +75,8 @@ def get_welcome_response():
     card_title = "Welcome"
     speech_output = "Welcome to the Cat Chores Alexa Skill!" \
                     "Please tell me what chore has been just been completed and who has completed it. "\
-                    "Please say it in past tense."
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
+                    "Please say it in past tense."\
+                    " You can also ask when a chore has last been done "
     reprompt_text = "Please tell me what chore has been just been completed. "\
                     "Please say it in past tense."
     should_end_session = False
@@ -88,7 +87,6 @@ def get_welcome_response():
 def handle_session_end_request():
     card_title = "Session Ended"
     speech_output = "Thank you! Have a nice day!"
-    # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
@@ -112,8 +110,9 @@ def performChore(intent, session, event):
     post_message = {'name': actorName, "time": str(time), "event": eventName}
 
     response = snsClient.publish(
-    TopicArn=catEventSNS,
-    Message=json.dumps({"name": actorName, "time": time, "event": eventName}))
+    TopicArn = catEventSNS,
+    Message = json.dumps({"name": actorName, "time": time, "event": eventName}))
+    print("Response: " + json.dumps(response, indent=2))
 
     speech_output = "Thank You! That record has been added!"
 
@@ -121,6 +120,23 @@ def performChore(intent, session, event):
         card_title, speech_output, "", should_end_session))
 
 def getPerformedChore(intent, session, event):
+    card_title = intent['name']
+    should_end_session = True
+
+    latestChores = lambdaClient.invoke(
+        FunctionName = catGetPerformedLambda,
+        InvocationType = 'RequestResponse'
+        )
+    print("Response: " + str(latestChores))
+    payload = latestChores['Payload'].read()
+
+    choresList = json.loads(json.loads(payload)['body'])['Message']
+    print("Parsed JSON Chore List: " + json.dumps(choresList, indent=2))
+
+    speech_output = ""
+    return build_response({}, build_speechlet_response(
+        card_title, speech_output, "", should_end_session))
+
 
 # --------------- Events ------------------
 
@@ -154,9 +170,8 @@ def on_intent(intent_request, session, event):
     # Dispatch to your skill's intent handlers
     if intent_name == "PerformChore":
         return performChore(intent, session, event)
-    elif intent_name == "QueryChore":
-        return None
-        #return get_color_from_session(intent, session)
+    elif intent_name == "GetChore":
+        return getPerformedChore(intent, session, event)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":

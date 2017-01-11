@@ -8,7 +8,7 @@ tableName = "CatChores"
 print('Loading function')
 dynamodb = boto3.resource('dynamodb').Table('CatChores')
 dynamodb.load()
-TIMEZONE_DIFFERENCE = timedelta(hours = -5)
+TIMEZONE_DIFFERENCE = timedelta(hours = -5) # accounting for the timezone difference between central time and UTC
 
 def respond(err, res=None):
     return {
