@@ -22,11 +22,19 @@
       ]
     },
     {
-      "intent": "GetUser",
-      "slots": [
+      "intent": "GetChore",
+        "slots": [
         {
-          "name": "User",
-          "type": "USER"
+          "name": "Chore",
+          "type": "CHORE"
+        },
+        {
+          "name": "Cat",
+          "type": "CAT_NAME"
+        },
+        {
+          "name": "Object",
+          "type": "CHORE_OBJECT"
         }
       ]
     }

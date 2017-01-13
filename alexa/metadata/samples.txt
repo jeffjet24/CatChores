@@ -1,5 +1,14 @@
 PerformChore {Cat} got {Chore} by {User}
 PerformChore {Cat} was {Chore} by {User}
 PerformChore {User} {Chore} {Cat} {Object}
-PerformChore {User} {Chore} {Cat} 
+PerformChore {User} {Chore} {Cat}
 PerformChore {User} {Chore} the {Object}
+
+GetChore when was {Cat} last {Chore}
+GetChore how long ago was the cat {Chore}
+GetChore when was the last time {Cat} was {Chore}
+GetChore when was the {Object} last {Chore}
+GetChore who {Chore} {Cat} last
+GetChore who {Chore} {Object} last
+GetChore who {Chore} {Cat} {Object} last
+GetChore when was {Cat} {Object} last {Chore}

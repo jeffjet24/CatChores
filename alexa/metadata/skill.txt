@@ -1,5 +1,5 @@
 Type: Custom
 Language: English
-Name: CatEvent
+Name: CatChores
 Invocation Name: cat
 Audio Player: No
