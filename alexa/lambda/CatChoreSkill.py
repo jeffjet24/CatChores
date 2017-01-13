@@ -130,11 +130,9 @@ def getPerformedChore(intent, session, event):
         FunctionName = catGetPerformedLambda,
         InvocationType = 'RequestResponse'
         )
-    print("Response: " + str(latestChores))
     payload = latestChores['Payload'].read()
 
     choresList = json.loads(json.loads(json.loads(payload)['body'])['Message'])
-    print("Parsed JSON Chore List: " + json.dumps(choresList, indent=2))
 
     eventName = ""
     if "value" in event["request"]["intent"]["slots"]["Cat"]:
@@ -154,7 +152,6 @@ def getPerformedChore(intent, session, event):
         feedAMTask = {}
         feedPMTask = {}
         for task in choresList:
-            #print("Cur Task" + task)
             taskItem = task['item']
             if taskItem['task'] == "FeedAM":
                 feedAMTask = task
