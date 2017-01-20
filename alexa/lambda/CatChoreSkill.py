@@ -104,13 +104,13 @@ def performChore(intent, session, event):
         eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], catName)
     else:
         eventName = getActivity(event["request"]["intent"]["slots"]["Chore"]["value"], "")
-    utc_dt = datetime.strptime(event["request"]["timestamp"], '%Y-%m-%dT%H:%M:%SZ')
+    utc_dt = datetime.strptime(event["request"]["timestamp"], '%Y-%m-%dT%H:%M:%SZ') + TIMEZONE_DIFFERENCE
     time = int((utc_dt - datetime(1970, 1, 1)).total_seconds())
 
     if eventName == "FeedAM" and utc_dt.hour >= 12:
         eventName = "FeedPM"
 
-
+    print("Completed Event: " + eventName)
     post_message = {'name': actorName, "time": str(time), "event": eventName}
 
     response = snsClient.publish(
