@@ -1,0 +1,42 @@
+{
+  "intents": [
+    {
+      "intent": "PerformChore",
+      "slots": [
+        {
+          "name": "Chore",
+          "type": "CHORE"
+        },
+        {
+          "name": "User",
+          "type": "USER"
+        },
+        {
+          "name": "Cat",
+          "type": "CAT_NAME"
+        },
+        {
+          "name": "Object",
+          "type": "CHORE_OBJECT"
+        }
+      ]
+    },
+    {
+      "intent": "GetChore",
+        "slots": [
+        {
+          "name": "Chore",
+          "type": "CHORE"
+        },
+        {
+          "name": "Cat",
+          "type": "CAT_NAME"
+        },
+        {
+          "name": "Object",
+          "type": "CHORE_OBJECT"
+        }
+      ]
+    }
+  ]
+}
