@@ -25,7 +25,7 @@ To explain this part, it requires a little bit of backstory. My roommates and I 
 * Scripts that will perform GET and POST requests to interact with APIs hosted on AWS to put chore records into a DynamoDB table.
 * The code in the AWS APIs (Lambda functions) that the interface and scripts will be interacting with to set and retreieve records of chores.
 * The Python scripts for the Hangouts bot to use to pull the pictures posted down from Google's servers.
-
+* An Amazon Alexa skill to interact with this tool, where it adds records of people doing chores. It also will have the ability to answer when a chore was last done. 
 
 ## Things that need to be done:
 If you would like to contribute, please feel free to either clone the repo and then make a Pull Request to merge your changes in! If you are looking for a list of the things that need to be done, please check out the issues section for a good place to start. 
